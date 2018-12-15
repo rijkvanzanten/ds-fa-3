@@ -15,10 +15,14 @@ const TCPServer = net.createServer();
 
 const wss = new WebSocket.Server({ server });
 
-
 wss.on("connection", ws => {
   emitter.on("data", data => {
-    ws.send(data)
+    ws.send(data, error => {
+      if (error) {
+        console.log(error.message);
+        ws.terminate();
+      }
+    });
   });
 });
 
@@ -26,8 +30,8 @@ server.listen(port, () => console.log("Server started."));
 TCPServer.listen(TCPPort, () => console.log("TCP Server Started"));
 
 TCPServer.on("connection", sock => {
-  sock.on("data", data => {
-    console.log(data);
-    emitter.emit("data", data);
+  sock.on("data", buffer => {
+    const zValue = buffer.toString();
+    emitter.emit("data", Number(zValue));
   });
 });
