@@ -35,7 +35,7 @@ osc.connect(gain);
 osc.frequency.value = 440;
 gain.gain.value = 100;
 
-const calibrationSize = 20;
+const calibrationSize = 1;
 let calibrationCounter = 0;
 let median = 0;
 let state = "CALIBRATING";
@@ -43,7 +43,6 @@ let state = "CALIBRATING";
 // This is a 50ms loop
 socket.onmessage = function(event) {
   const rawY = Number(event.data);
-  if (rawY < 1500 || rawY > 2500) return;
 
   if (state === "CALIBRATING") {
     if (calibrationCounter < calibrationSize) {

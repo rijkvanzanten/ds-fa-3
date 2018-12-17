@@ -19,7 +19,6 @@ wss.on("connection", ws => {
   emitter.on("data", data => {
     ws.send(data, error => {
       if (error) {
-        console.log(error.message);
         ws.terminate();
       }
     });
@@ -29,9 +28,20 @@ wss.on("connection", ws => {
 server.listen(port, () => console.log("Server started."));
 TCPServer.listen(TCPPort, () => console.log("TCP Server Started"));
 
+let buffered = "";
+
 TCPServer.on("connection", sock => {
-  sock.on("data", buffer => {
-    const yValue = buffer.toString();
-    emitter.emit("data", Number(yValue));
+  sock.on("data", data => {
+    buffered += data;
+    processReceived();
   });
 });
+
+function processReceived() {
+  let received = buffered.split(".");
+  while (received.length > 1) {
+    emitter.emit("data", received[0]);
+    buffered = received.slice(1).join(".");
+    received = buffered.split(".");
+  }
+}

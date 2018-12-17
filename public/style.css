@@ -69,3 +69,10 @@ button {
   border-radius: 10px;
   cursor: pointer;
 }
+
+output {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  font-family: monospace;
+}
