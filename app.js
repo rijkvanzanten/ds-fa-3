@@ -31,7 +31,7 @@ TCPServer.listen(TCPPort, () => console.log("TCP Server Started"));
 
 TCPServer.on("connection", sock => {
   sock.on("data", buffer => {
-    const zValue = buffer.toString();
-    emitter.emit("data", Number(zValue));
+    const yValue = buffer.toString();
+    emitter.emit("data", Number(yValue));
   });
 });
