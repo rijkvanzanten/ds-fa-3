@@ -1,4 +1,4 @@
-const socket = new WebSocket("ws://localhost:3000");
+const socket = new WebSocket("wss://ds-fa-3.rijks.website");
 const outputEl = document.querySelector("#output");
 const svg = document.querySelector("svg");
 
