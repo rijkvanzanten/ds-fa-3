@@ -25,8 +25,8 @@ wss.on("connection", ws => {
   });
 });
 
-server.listen(port, () => console.log("Server started."));
-TCPServer.listen(TCPPort, () => console.log("TCP Server Started"));
+server.listen(port, () => console.log("Server started." + port));
+TCPServer.listen(TCPPort, () => console.log("TCP Server Started." + TCPPort));
 
 let buffered = "";
 
